@@ -10,7 +10,7 @@ function execute(maxParts, currentPart, customDirectory) {
     files.forEach((file) => {
       const filePath = path.join(dir, file);
       const stats = fs.statSync(filePath);
-      if (stats.isFile()) {
+      if (stats.isFile() && (file.endsWith(".ts") || file.endsWith(".js"))) {
         filesArr.push(filePath);
         // Log file path or do whatever you need with it
       } else if (stats.isDirectory()) {
@@ -23,7 +23,12 @@ function execute(maxParts, currentPart, customDirectory) {
 
   const currentPartFiles = Math.ceil(filesArr.length / maxParts);
 
-  return filesArr.slice(currentPart === 1 || currentPart === 0 ? 0 : currentPartFiles * (currentPart - 1), currentPartFiles * currentPart);
+  return filesArr.slice(
+    currentPart === 1 || currentPart === 0
+      ? 0
+      : currentPartFiles * (currentPart - 1),
+    currentPartFiles * currentPart
+  );
 }
 
 if (process.argv.length < 3) {
@@ -31,12 +36,12 @@ if (process.argv.length < 3) {
   process.exit(1);
 }
 
-const max = process.argv[2]
-const current = process.argv[3]
-let customDirectory = null
+const max = process.argv[2];
+const current = process.argv[3];
+let customDirectory = null;
 
 if (process.argv.length > 3) {
-  customDirectory = process.argv[4]
+  customDirectory = process.argv[4];
 }
 
 if (isNaN(max) || isNaN(current)) {
