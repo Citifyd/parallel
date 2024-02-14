@@ -36,6 +36,7 @@ function execute(maxParts, currentPart, customDirectory) {
   return filesBlock[currentPart - 1];
 }
 
+console.log(process.argv);
 if (process.argv.length < 3) {
   console.log("Usage: node parallel.js <max> <current>");
   process.exit(1);
@@ -59,4 +60,4 @@ if (max < 1 || current < 1) {
   process.exit(1);
 }
 
-console.log(execute(max, current, customDirectory).join(" "));
+console.log(execute(max, current, null).join(" "));
