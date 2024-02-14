@@ -22,13 +22,18 @@ function execute(maxParts, currentPart, customDirectory) {
   traverseDirectory(directoryPath);
 
   const currentPartFiles = Math.ceil(filesArr.length / maxParts);
+  const filesBlock = Array.from({ length: maxParts }).map((_, i) => {
+    console.log("currentPartFiles", currentPartFiles);
+    console.log("currentPartFiles * i", currentPartFiles * i);
+    console.log("currentPartFiles * i", currentPartFiles * (i + 1));
+    return filesArr.slice(currentPartFiles * i, currentPartFiles * (i + 1));
+  });
 
-  return filesArr.slice(
-    currentPart === 1 || currentPart === 0
-      ? 0
-      : currentPartFiles * (currentPart - 1),
-    currentPartFiles * currentPart
-  );
+  console.log(filesBlock);
+  // console.log(filesBlock[currentPart - 1]);
+  console.log(currentPart);
+
+  return filesBlock[currentPart - 1];
 }
 
 if (process.argv.length < 3) {
@@ -54,4 +59,4 @@ if (max < 1 || current < 1) {
   process.exit(1);
 }
 
-console.log(execute(12, 1, customDirectory).join(" "));
+console.log(execute(max, current, customDirectory).join(" "));
