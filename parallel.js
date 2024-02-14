@@ -23,20 +23,12 @@ function execute(maxParts, currentPart, customDirectory) {
 
   const currentPartFiles = Math.ceil(filesArr.length / maxParts);
   const filesBlock = Array.from({ length: maxParts }).map((_, i) => {
-    console.log("currentPartFiles", currentPartFiles);
-    console.log("currentPartFiles * i", currentPartFiles * i);
-    console.log("currentPartFiles * i", currentPartFiles * (i + 1));
     return filesArr.slice(currentPartFiles * i, currentPartFiles * (i + 1));
   });
-
-  console.log(filesBlock);
-  // console.log(filesBlock[currentPart - 1]);
-  console.log(currentPart);
 
   return filesBlock[currentPart - 1];
 }
 
-console.log(process.argv);
 if (process.argv.length < 3) {
   console.log("Usage: node parallel.js <max> <current>");
   process.exit(1);
@@ -60,4 +52,4 @@ if (max < 1 || current < 1) {
   process.exit(1);
 }
 
-console.log(execute(max, current, null).join(" "));
+console.log(execute(max, current, customDirectory).join(" "));
